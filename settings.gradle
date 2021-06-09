@@ -1,0 +1,2 @@
+rootProject.name = "SurfUp"
+include ':app'
