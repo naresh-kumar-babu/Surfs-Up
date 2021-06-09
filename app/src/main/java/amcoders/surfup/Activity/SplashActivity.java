@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (mAuth.getCurrentUser() == null)
                 {
                     i=new Intent(SplashActivity.this,
-                            SignUpActivity.class);
+                            LoginActivity.class);
                 }
                 else {
                     i = new Intent(SplashActivity.this,
