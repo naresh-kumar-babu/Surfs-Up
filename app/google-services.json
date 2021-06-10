@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "80249129679",
+    "project_id": "surfup-9b046",
+    "storage_bucket": "surfup-9b046.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80249129679:android:18174e1941972e118b05ba",
+        "android_client_info": {
+          "package_name": "amcoders.surfup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80249129679-png42jd95fq33bo053l7djv78eqcg5mm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW-WkuRht993Vx0-caWU-qJqR1JccHMMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80249129679-png42jd95fq33bo053l7djv78eqcg5mm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

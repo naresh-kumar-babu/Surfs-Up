@@ -1,9 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/signup_relative_layout"
     tools:context=".Activity.SignupActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/SIGNUP_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign up"
+        android:textStyle="bold"
+        android:textSize="50sp"
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        />
+    <ImageView
+        android:id="@+id/signup_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/s5"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="300dp"/>
+
+    <EditText
+        android:id="@+id/signup_email_field"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/SIGNUP_heading"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:hint="Email address"
+        android:layout_marginTop="40dp"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/rounder_field"
+        android:padding="12dp"
+        />
+    <EditText
+        android:id="@+id/signup_password_field"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/signup_email_field"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:hint="Password"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword"
+        android:background="@drawable/rounder_field"
+        android:padding="12dp"
+        />
+    <EditText
+        android:id="@+id/signup_confirm_password_field"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/signup_password_field"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:hint="Confirm password"
+        android:layout_marginTop="20dp"
+        android:inputType="numberPassword"
+        android:background="@drawable/rounder_field"
+        android:padding="12dp"
+        />
+
+    <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/spin_kit_reg"
+        style="@style/SpinKitView.Large.Wave"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:elevation="10dp"
+        android:padding="5dp"
+        android:visibility="gone"
+        app:SpinKit_Color="@color/white" />
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:padding="12dp"
+        android:background="@drawable/rounder_field"
+        android:layout_below="@+id/signup_confirm_password_field"
+        android:backgroundTintMode="add"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:text="SIGN UP"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_marginTop="30dp"
+        />
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/animation"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:scaleY="-1"
+        app:mwhVelocity="8"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>
