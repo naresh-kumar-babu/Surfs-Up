@@ -16,12 +16,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     String fullname,nickname,gender,date,country;
     int year,month,day;
     private String uid;
+    private RelativeLayout relativeLayout;
     private DatabaseReference usersRef;
     Spinner countryspin;
 
@@ -53,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         mAuth=FirebaseAuth.getInstance();
+        relativeLayout = (RelativeLayout) findViewById(R.id.profile_relative_layout);
         MaleT = findViewById(R.id.male_select);
         FemaleT = findViewById(R.id.female_select);
         OtherT = findViewById(R.id.other_select);
@@ -172,7 +176,9 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         if(position == 0){
-                            Toast.makeText(getApplicationContext(),"Please Select Your Country",Toast.LENGTH_SHORT).show();
+                            Snackbar snackbar = Snackbar.make(relativeLayout,
+                                    "Please Select Your Country", Snackbar.LENGTH_SHORT);
+                            snackbar.show();
                         }else{
                             String scountry = parent.getItemAtPosition(position).toString();
                             country = scountry;
@@ -187,12 +193,12 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(fullname) || TextUtils.isEmpty(date) || TextUtils.isEmpty(gender) || TextUtils.isEmpty(country) || TextUtils.isEmpty(nickname))
                 {
-                    Toast.makeText(ProfileActivity.this,  "Please fill the details. ", Toast.LENGTH_SHORT).show();
-                    return;
+                    Snackbar snackbar = Snackbar.make(relativeLayout,
+                            "Please fill the details. ", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
                 }
-                if(!(TextUtils.isEmpty(fullname)&&TextUtils.isEmpty(date)&&TextUtils.isEmpty(gender)))
+                if(!(TextUtils.isEmpty(fullname)&&TextUtils.isEmpty(date)&&TextUtils.isEmpty(gender)&&TextUtils.isEmpty(nickname)&&TextUtils.isEmpty(country)))
                 {
-
                     usersRef = FirebaseDatabase.getInstance().getReference("Users");
                     uid = mAuth.getCurrentUser().getUid();
                     HashMap<String,Object> result=new HashMap<>();
@@ -213,8 +219,9 @@ public class ProfileActivity extends AppCompatActivity {
                             else
                             {
                                 String message = task.getException().getMessage();
-                                Toast.makeText(ProfileActivity.this, "Error occurred. "+message, Toast.LENGTH_SHORT).show();
-                                return;
+                                Snackbar snackbar = Snackbar.make(relativeLayout,
+                                        "Error occurred. "+message, Snackbar.LENGTH_SHORT);
+                                snackbar.show();
                             }
                         }
                     });

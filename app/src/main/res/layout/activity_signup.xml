@@ -62,7 +62,7 @@
         android:layout_marginRight="35dp"
         android:hint="Confirm password"
         android:layout_marginTop="20dp"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:background="@drawable/rounder_field"
         android:padding="12dp"
         />
