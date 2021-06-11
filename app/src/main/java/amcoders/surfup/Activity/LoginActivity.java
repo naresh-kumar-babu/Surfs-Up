@@ -107,6 +107,8 @@ public class LoginActivity extends AppCompatActivity {
                                         Snackbar snackbar = Snackbar.make(relativeLayout,
                                                 "Login successful", Snackbar.LENGTH_SHORT);
                                         snackbar.show();
+                                        Intent signupIntent = new Intent(LoginActivity.this, dashboardActivity.class);
+                                        startActivity(signupIntent);
                                     }
                                     else
                                     {

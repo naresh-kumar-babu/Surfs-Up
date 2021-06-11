@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SurfUp">
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity android:name=".Activity.dashboardActivity"></activity>
         <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.SignupActivity" />
