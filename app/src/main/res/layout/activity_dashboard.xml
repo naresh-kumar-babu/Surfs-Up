@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:padding="25sp"
+                android:paddingTop="30sp"
                 android:background="@color/white"
                 >
                 <AutoCompleteTextView
@@ -127,7 +127,7 @@
                             >
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:text="Humidity"
                                 android:textStyle="bold"
                                 android:padding="10sp"
@@ -221,7 +221,7 @@
                                 >
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:text="Speed"
                                     android:textStyle="bold"
                                     android:padding="12sp"
@@ -256,7 +256,7 @@
                                 >
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:text="Gust"
                                     android:textStyle="bold"
                                     android:padding="12sp"
@@ -340,8 +340,8 @@
                                 android:orientation="horizontal"
                                 >
                                 <TextView
-                                    android:layout_width="100sp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="80sp"
+                                    android:layout_height="match_parent"
                                     android:text="Risk"
                                     android:textStyle="bold"
                                     android:padding="12sp"

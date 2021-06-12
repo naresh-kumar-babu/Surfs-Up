@@ -87,7 +87,7 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
-        new Beach().execute();
+        //new Beach().execute();
 
     }
 
@@ -157,7 +157,7 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        Geocoder coder = new Geocoder(getApplicationContext());
+      /*  Geocoder coder = new Geocoder(getApplicationContext());
         List<Address> address;
         latitude = location.getLatitude();
         longtitude = location.getLongitude();
@@ -169,7 +169,7 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
 
 
     }
