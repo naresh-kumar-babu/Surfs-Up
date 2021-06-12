@@ -20,17 +20,25 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.logging.type.HttpRequest;
 
@@ -61,77 +69,45 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
     private String cityName;
     String API = "ab0c74db525dca837cf24d22f08b5cd4";
     private LocationManager locationManager;
-    public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36";
     double latitude, longtitude;
     private List<String> beachList = null;
-
+    private TextView CityNameTV, WeatherDescTV, TempTV, HumidTV, WindspeedTV, GustTV, RiskTV, RecommendationTV;
+    private ImageView WeatherIcon;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_dashboard);
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        ThreadPolicy tp = StrictMode.ThreadPolicy.LAX;
-        StrictMode.setThreadPolicy(tp);
-
         if(ContextCompat.checkSelfPermission(dashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED){
-
+                != PackageManager.PERMISSION_GRANTED)
+        {
             ActivityCompat.requestPermissions(dashboardActivity.this,new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION
             },100);
         }
 
+        getlocation();
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
-        //new Beach().execute();
+        CityNameTV = findViewById(R.id.city_name);
+        WeatherDescTV = findViewById(R.id.weather_field);
+        TempTV = findViewById(R.id.temperature_field);
+        HumidTV = findViewById(R.id.humidity_field);
+        WindspeedTV = findViewById(R.id.speed_field);
+        GustTV = findViewById(R.id.gust_field);
+        RiskTV = findViewById(R.id.risk_field);
+        RecommendationTV = findViewById(R.id.recommendation_field);
+        WeatherIcon = findViewById(R.id.weather_icon);
 
     }
 
-    public  class Beach extends AsyncTask<String, String, String> {
 
 
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                getlocation();
-                Document doc = Jsoup.connect("https://www.google.com/search?q=beaches+near+washington+dc").get();
-                Elements uList = doc.select("li.TrT0Xe");
-                beachList = uList.eachText();
-                for (int i=0; i<beachList.size(); i++)
-                {
-                    Log.d("BEACH "+ Integer.toString(i) ,beachList.get(i));
-                }
-                return null;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-
-            if (beachList != null)
-            {
-                for (int i = 0; i < beachList.size(); i++) {
-
-                    String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + beachList.get(i) +"&appid=" + API;
-                    weather(beachList.get(i), BASE_URL);
-                }
-            }
-
-        }
-    }
-
-    public void weather(String location, String url)
+    public void weather(String url)
     {
-
+        getlocation();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -139,8 +115,24 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string
                         try {
-                            String desc = new JSONObject(response).getJSONArray("weather").getJSONObject(0).getString("description");
-                            Log.d("Description: ",desc);
+                            JSONObject obj = new JSONObject(response);
+                            String imageUrl = "https://openweathermap.org/img/wn/";
+                            JSONObject weatherObj = obj.getJSONArray("weather").getJSONObject(0);
+                            String desc = weatherObj.getString("description");
+                            imageUrl = imageUrl + weatherObj.getString("icon") + "@2x.png";
+                            String temp = obj.getJSONObject("main").getString("feels_like");
+                            String humidity = obj.getJSONObject("main").getString("humidity");
+                            JSONObject windObj = obj.getJSONObject("wind");
+                            String speed = windObj.getString("speed");
+                            String gust = windObj.getString("gust");
+                            String firstLetter=desc.substring(0,1);
+                            String remainingLetters=desc.substring(1);
+                            WeatherDescTV.setText(firstLetter.toUpperCase() + remainingLetters);
+                            TempTV.setText("Feels like " + temp + " °C");
+                            HumidTV.setText(humidity + " %");
+                            WindspeedTV.setText(speed + " kmph");
+                            GustTV.setText(gust + " kmph");
+                            Glide.with(getApplicationContext()).load(imageUrl).into(WeatherIcon);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -157,7 +149,7 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-      /*  Geocoder coder = new Geocoder(getApplicationContext());
+        Geocoder coder = new Geocoder(this);
         List<Address> address;
         latitude = location.getLatitude();
         longtitude = location.getLongitude();
@@ -165,14 +157,15 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
             address = coder.getFromLocation(latitude, longtitude,1);
             Address locationAdd = address.get(0);
             cityName = locationAdd.getLocality();
-            Log.d("CITY NAME",cityName);
+            CityNameTV.setText(cityName);
+            String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName +"&appid=" + API + "&units=metric";
+            weather(BASE_URL);
         } catch (IOException e) {
             e.printStackTrace();
         }
-*/
-
 
     }
+
 
     @Override
     protected void onStart() {
