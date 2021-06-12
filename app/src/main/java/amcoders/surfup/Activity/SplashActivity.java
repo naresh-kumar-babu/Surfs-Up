@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 else {
                     i = new Intent(SplashActivity.this,
-                            MainActivity.class);
+                            dashboardActivity.class);
                 }
 
                 startActivity(i);
