@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:id="@+id/profile_relative_layout"
     tools:context=".Activity.ProfileActivity">
 
@@ -30,6 +31,8 @@
         android:layout_below="@id/intro_heading"
         android:layout_marginLeft="35sp"
         android:layout_marginRight="35sp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/grey"
         android:hint="Full Name"
         android:layout_marginTop="40sp"
         android:inputType="text"
@@ -43,6 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:layout_marginLeft="35sp"
+        android:textColor="@color/grey"
+        android:textColorHint="@color/grey"
         android:layout_marginRight="35sp"
         android:hint="DD/MM/YYYY"
         android:layout_marginTop="20sp"
@@ -69,6 +74,7 @@
             android:layout_height="65sp"
             android:padding="3sp"
             android:textStyle="bold"
+            android:textColor="@color/grey"
             android:gravity="center"
             android:background="@drawable/rounder_field"
             android:text="Male"/>
@@ -79,6 +85,7 @@
             android:layout_marginLeft="10sp"
             android:padding="3sp"
             android:textStyle="bold"
+            android:textColor="@color/grey"
             android:layout_toRightOf="@id/male_select"
             android:gravity="center"
             android:background="@drawable/rounder_field"
@@ -91,6 +98,7 @@
             android:layout_toRightOf="@id/female_select"
             android:padding="3sp"
             android:textStyle="bold"
+            android:textColor="@color/grey"
             android:gravity="center"
             android:background="@drawable/rounder_field"
             android:text="Other"/>
@@ -106,6 +114,8 @@
         android:layout_marginLeft="35sp"
         android:layout_marginRight="35sp"
         android:hint="Nick Name"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/grey"
         android:layout_marginTop="10sp"
         android:inputType="text"
         android:background="@drawable/rounder_field"
