@@ -67,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
                     snackbar.show();
 
                 }
-                if(!(TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && TextUtils.isEmpty(re_password)))
+                else
                 {
                     if(password.equals(re_password))
                     {

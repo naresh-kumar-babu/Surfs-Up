@@ -44,7 +44,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView MaleT, FemaleT, OtherT, DateT;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     boolean maleb,femaleb, otherb;
-    String fullname,nickname,gender,date,country;
+    String fullname,nickname,gender,date;
+    String country = "";
     int year,month,day;
     private String uid;
     private RelativeLayout relativeLayout;
@@ -73,9 +74,9 @@ public class ProfileActivity extends AppCompatActivity {
         }
         Collections.sort(countries);
         countries.add(0,"Country");
-
         countryspin.setAdapter(new ArrayAdapter<>(ProfileActivity.this,
                 android.R.layout.simple_spinner_dropdown_item,countries));
+        countryspin.setSelection(0, false);
 
 
 
@@ -172,10 +173,17 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 fullname = FullnameET.getText().toString();
                 nickname = NicknameET.getText().toString();
+                if(TextUtils.isEmpty(country))
+                {
+                    Snackbar snackbar = Snackbar.make(relativeLayout,
+                            "Please Select Your Country", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
                 countryspin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         if(position == 0){
+                            country = "";
                             Snackbar snackbar = Snackbar.make(relativeLayout,
                                     "Please Select Your Country", Snackbar.LENGTH_SHORT);
                             snackbar.show();
@@ -191,13 +199,13 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
 
-                if(TextUtils.isEmpty(fullname) || TextUtils.isEmpty(date) || TextUtils.isEmpty(gender) || TextUtils.isEmpty(country) || TextUtils.isEmpty(nickname))
+                if(TextUtils.isEmpty(fullname) || TextUtils.isEmpty(date) || TextUtils.isEmpty(gender)  || TextUtils.isEmpty(nickname))
                 {
                     Snackbar snackbar = Snackbar.make(relativeLayout,
                             "Please fill the details. ", Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
-                if(!(TextUtils.isEmpty(fullname)&&TextUtils.isEmpty(date)&&TextUtils.isEmpty(gender)&&TextUtils.isEmpty(nickname)&&TextUtils.isEmpty(country)))
+                if(!(TextUtils.isEmpty(fullname) || TextUtils.isEmpty(date) || TextUtils.isEmpty(gender) || TextUtils.isEmpty(nickname) || TextUtils.isEmpty(country)))
                 {
                     usersRef = FirebaseDatabase.getInstance().getReference("Users");
                     uid = mAuth.getCurrentUser().getUid();
@@ -225,6 +233,13 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
+                     /*
+                    Snackbar snackbar = Snackbar.make(relativeLayout,fullname+", "+nickname+", "+date+", "+gender+", "+country, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    Intent mainIntent = new Intent(ProfileActivity.this, dashboardActivity.class);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(mainIntent);
+                      */
                 }
             }
         });
