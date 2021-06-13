@@ -4,7 +4,7 @@
 
 
 ### An Overview 
-<p> Our aim is to create a full fledged community for surfers. We have here implemented a OpenWeather API for giving the users necessary information regarding the climatic condition, which will help them to know if they can surf at a particular day and time or not. We have used an Optimised Rick Prediction model, which recommends the safety and surfing conditions. Our application also gives insight on whether any natural disaster is likely to occur on a certain day to help the users from not experiencing any calamities.</p>
+<p> Our aim is to create a full fledged community for surfers. We have implemented a OpenWeather API for giving the users necessary information regarding the climatic condition, which will help them to know if they can surf at a particular day and time or not. We have used an Optimised Rick Prediction model, which recommends the safety and surfing conditions. Our application also gives insight on whether any natural disaster is likely to occur on a certain day to help the users from not experiencing any calamities.</p>
 
 ### Why it is useful?
 <ul>
