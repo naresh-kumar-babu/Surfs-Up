@@ -40,8 +40,9 @@
  <li>Google Cloud</li>
  <li>Google Places</li>
  <li>Firebase</li>
- <li>xml</li>
+ <li>Xml</li>
  <li>Java</li>
+ <li>OpenWeather<li>
  </ul>
  
  #### Surfers on board
