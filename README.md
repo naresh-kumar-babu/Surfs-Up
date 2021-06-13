@@ -35,11 +35,12 @@
  </ul>
  
  #### Surfers on board
- <ul>
- <li>Sanjay Thiyagarajan</li>
- <li>Naresh Kumar B</li>
- <li>Xavier Emmanuel E</li>
- <li>Vadivelu Murali Pranavan</li>
+ 
+ * [Sanjay Thiyagarajan](https://github.com/sanjay-thiyagarajan)
+ * [Naresh Kumar B](https://github.com/TechieNK)
+ * [Xavier Emmanuel E](https://github.com/Xavier-Alfred)
+ * [Vadivelu Murali Pranavan](https://github.com/Techipeeyon)
+ 
   
  
  
