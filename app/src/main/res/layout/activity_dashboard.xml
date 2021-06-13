@@ -28,7 +28,7 @@
 
                     android:background="@color/white"
                     >
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/search_input_field"
                         android:layout_width="260sp"
                         android:layout_height="55sp"
@@ -40,7 +40,9 @@
                         android:background="@color/white"
                         android:layout_marginRight="15sp"
                         />
+
                     <ImageView
+                        android:id="@+id/search_button"
                         android:layout_width="70sp"
                         android:layout_height="70sp"
                         android:src="@drawable/searchicon"
@@ -432,6 +434,7 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_dash"
         android:layout_width="match_parent"
         android:layout_height="65sp"
         app:itemHorizontalTranslationEnabled="true"

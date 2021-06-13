@@ -1,6 +1,7 @@
 package amcoders.surfup.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -20,6 +22,10 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +45,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.logging.type.HttpRequest;
 
@@ -58,6 +71,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,13 +80,17 @@ import amcoders.surfup.R;
 
 public class dashboardActivity extends AppCompatActivity implements LocationListener {
 
-    private String cityName;
+    private String cityName, baseURL;
     String API = "ab0c74db525dca837cf24d22f08b5cd4";
     private LocationManager locationManager;
     double latitude, longtitude;
     private List<String> beachList = null;
     private TextView CityNameTV, WeatherDescTV, TempTV, HumidTV, WindspeedTV, GustTV, RiskTV, RecommendationTV;
-    private ImageView WeatherIcon;
+    private ImageView WeatherIcon, SearchButton;
+    private BottomNavigationView bottomNavigationView;
+    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
+    private EditText autoCompleteTextView;
+
 
 
     @Override
@@ -81,15 +99,7 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
 
         setContentView(R.layout.activity_dashboard);
 
-        if(ContextCompat.checkSelfPermission(dashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(dashboardActivity.this,new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            },100);
-        }
 
-        getlocation();
 
         CityNameTV = findViewById(R.id.city_name);
         WeatherDescTV = findViewById(R.id.weather_field);
@@ -100,14 +110,56 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
         RiskTV = findViewById(R.id.risk_field);
         RecommendationTV = findViewById(R.id.recommendation_field);
         WeatherIcon = findViewById(R.id.weather_icon);
+        bottomNavigationView = findViewById(R.id.bottom_nav_dash);
+        autoCompleteTextView = findViewById(R.id.search_input_field);
+        SearchButton = findViewById(R.id.search_button);
+
+        baseURL = getIntent().getStringExtra("base_url");
+        cityName = getIntent().getStringExtra("city_name");
+
+        CityNameTV.setText(cityName);
+
+        SearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String place=autoCompleteTextView.getText().toString();
+                String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + place +"&appid=" + API + "&units=metric";
+                Intent bIntent = new Intent(dashboardActivity.this, dashboardActivity.class);
+                bIntent.putExtra("base_url", BASE_URL);
+                bIntent.putExtra("city_name", place);
+                startActivity(bIntent);
+            }
+        });
+
+        weather(baseURL);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.menu_search:
+                        Intent sIntent = new Intent(dashboardActivity.this, SearchActivity.class);
+                        startActivity(sIntent);
+                        return true;
+                    case R.id.menu_home:
+                        return true;
+                    case R.id.menu_profile:
+                        Intent pIntent = new Intent(dashboardActivity.this, ProfileViewActivity.class);
+                        startActivity(pIntent);
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 
 
-
     public void weather(String url)
     {
-        getlocation();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -149,56 +201,13 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        Geocoder coder = new Geocoder(this);
-        List<Address> address;
-        latitude = location.getLatitude();
-        longtitude = location.getLongitude();
-        try {
-            address = coder.getFromLocation(latitude, longtitude,1);
-            Address locationAdd = address.get(0);
-            cityName = locationAdd.getLocality();
-            CityNameTV.setText(cityName);
-            String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName +"&appid=" + API + "&units=metric";
-            weather(BASE_URL);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getlocation();
-    }
 
-    @SuppressLint("MissingPermission")
-    private void getlocation() {
 
-        try {
-            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,5,dashboardActivity.this);
 
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
 
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-
-    }
 }
