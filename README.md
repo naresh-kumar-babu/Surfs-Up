@@ -31,7 +31,7 @@
  <li>Google Places</li>
  <li>Firebase</li>
  <li>xml</li>
- <li>java</li>
+ <li>Java</li>
  </ul>
  
  #### Surfers on board
