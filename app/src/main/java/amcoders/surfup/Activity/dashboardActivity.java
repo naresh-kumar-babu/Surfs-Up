@@ -179,11 +179,17 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
                             String gust = windObj.getString("gust");
                             String firstLetter=desc.substring(0,1);
                             String remainingLetters=desc.substring(1);
+                            float surfing_constant = (Float.valueOf(humidity) *60/ 88)+(Float.valueOf(speed)*12/5)+(Float.valueOf(gust)*7) /3;
+                            RiskTV.setText(String.valueOf((int) surfing_constant) + " %");
                             WeatherDescTV.setText(firstLetter.toUpperCase() + remainingLetters);
                             TempTV.setText("Feels like " + temp + " °C");
                             HumidTV.setText(humidity + " %");
                             WindspeedTV.setText(speed + " kmph");
                             GustTV.setText(gust + " kmph");
+                            if ((int) surfing_constant > 70)
+                            {
+                                RecommendationTV.setText("It is dangerous to surf out there");
+                            }
                             Glide.with(getApplicationContext()).load(imageUrl).into(WeatherIcon);
                         } catch (JSONException e) {
                             e.printStackTrace();
