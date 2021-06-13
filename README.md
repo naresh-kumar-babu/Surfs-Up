@@ -42,7 +42,8 @@
  <li>Firebase</li>
  <li>Xml</li>
  <li>Java</li>
- <li>OpenWeather<li>
+ <li>OpenWeather API</li>
+ <li>GeoCoder </li>
  </ul>
  
  #### Surfers on board
