@@ -23,6 +23,16 @@
  
  <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/3.gif" height="300" width="200">  <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/1.gif" height="300" width="200"> <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/2.gif" height="300" width="200">
  
+ ### Steps for using
+ <ul>
+ <li>Clone the repo</li>
+ <li>Open Android Studio</li>
+ <li>Open Project</li>
+ <li>Go to the location where you have saved the project</li>
+ <li>Go to the java folder where you can see all the java files.That is the main project</li>
+ <li>onnect to emulator or mobile through USB to use the app after running successfully</li>
+ </ul>
+ 
  ### Build with
  <ul>
  <li>Android Studio</li>
