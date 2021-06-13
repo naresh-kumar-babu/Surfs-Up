@@ -30,7 +30,7 @@
  <li>Open Project</li>
  <li>Go to the location where you have saved the project</li>
  <li>Go to the java folder where you can see all the java files.That is the main project</li>
- <li>onnect to emulator or mobile through USB to use the app after running successfully</li>
+ <li>Connect to emulator or mobile through USB to use the app after running successfully</li>
  </ul>
  
  ### Build with
