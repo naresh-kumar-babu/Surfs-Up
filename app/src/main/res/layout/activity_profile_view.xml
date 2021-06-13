@@ -4,7 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.ProfileViewActivity">
+    tools:context=".Activity.ProfileViewActivity"
+    android:id="@+id/profile_view">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="350sp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-100sp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/surfer" />
+
+    <TextView
+        android:id="@+id/profile_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:layout_marginTop="480sp"
+        android:textSize="28sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:padding="5sp"
+        android:textColor="@color/blue"
+        />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="35sp"
+        android:layout_marginRight="35sp"
+        android:padding="12sp"
+        android:background="@drawable/rounder_field"
+        android:layout_below="@id/profile_nickname"
+        android:backgroundTintMode="add"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:text="LOGOUT"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_blue_dark"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/profile_bottom_nav"
