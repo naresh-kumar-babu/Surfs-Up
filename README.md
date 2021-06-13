@@ -1,4 +1,4 @@
-# Surfs-Up
+# <img src = "https://github.com/TechieNK/Surfs-Up/blob/main/app/src/main/res/drawable/logo.png" height="45" weight="45"> Surfs-Up 
 
  Full Fledged surf time analysis on the run to save your travel time and your life sometimes
 
