@@ -21,7 +21,7 @@
  
  ### Live Demo
  
- <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/3.gif" height="300" width="200">  <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/1.gif" height="300" width="200"> <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/2.gif" height="300" width="200">
+ <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/3.gif" height="300" width="200">  <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/1.gif" height="300" width="200"> <img src="https://github.com/TechieNK/Surfs-Up/blob/main/images/2.gif" height="300" width="200"> <img src="https://github.com/TechieNK/Surfs-Up/blob/main/4.gif" height="300" width="160">
  
  ### Steps for using
  <ul>
